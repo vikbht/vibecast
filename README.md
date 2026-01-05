@@ -1,13 +1,16 @@
 # VibeCast 🌤️🎧🛍️🍽️
 
-**VibeCast** is a minimalist, lifestyle-oriented forecast application that goes beyond just the weather. It curates your environment by recommending music, style, and dining options based on the current atmosphere and location.
+**VibeCast** is a minimalist, lifestyle-oriented forecast application that curates your environment by recommending music, style, and dining options based on the real-time atmosphere of your location.
+
+![VibeCast Dashboard](/Users/vikasbhatia/.gemini/antigravity/brain/2e4ceb7b-fc19-422d-bc6a-8d8e98bc6ea3/dashboard_verification_1767641421723.png)
 
 ## ✨ Features
 
-- **Minimalist Weather**: Clean, glassmorphism-inspired UI showing real-time weather data.
-- **Vibe (Music)**: Context-aware music recommendations based on weather and temperature (e.g., Lo-Fi for rain, Upbeat for sunny days).
-- **Style Guide**: Smart apparel suggestions (from Amazon/Mock) tailored to the weather and time of day.
-- **Local Gems**: Top 5 dining recommendations for the searched city, curated by cuisine and "vibe".
+- **Unified Dashboard**: A responsive 2x2 grid layout that presents all key lifestyle metrics at a glance.
+- **Minimalist Weather**: Glassmorphism-inspired UI showing real-time temperature, wind, and conditions.
+- **Vibes (Music)**: Context-aware YouTube music recommendations (e.g., Lo-Fi for rain, Upbeat for sun).
+- **Style Guide**: Amazon-linked apparel suggestions tailored to the current weather and time of day. Featuring a custom scrollable recommendation carousel.
+- **Local Gems**: Top dining recommendations for the searched city, curated by cuisine and "vibe".
 
 ## 🏗️ Architecture
 
@@ -23,9 +26,9 @@ VibeCast is built with a modern, lightweight stack focusing on performance and a
     - `dining.py`: Mock service for generating culturally relevant restaurant data.
 
 ### Frontend (`app/static/`)
-- **Technlogy**: Vanilla JavaScript (ES6+), HTML5.
+- **Technology**: Vanilla JavaScript (ES6+), HTML5.
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) (via CDN) for rapid, responsive design.
-- **Design System**: Glassmorphism with dynamic gradients and `Outfit` typography.
+- **Design System**: Glassmorphism with dynamic gradients, `Outfit` typography, and custom scrollbar styling.
 
 ## 🚀 Getting Started
 
