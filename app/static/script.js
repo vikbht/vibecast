@@ -7,7 +7,7 @@ const errorMessage = document.getElementById('errorMessage');
 // Unit Toggle elements
 const metricBtn = document.getElementById('metricBtn');
 const imperialBtn = document.getElementById('imperialBtn');
-let currentUnit = 'metric';
+let currentUnit = 'imperial';
 let lastCity = ''; // Store last searched city to refresh on toggle
 
 // Elements to update
