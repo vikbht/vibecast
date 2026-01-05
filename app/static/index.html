@@ -41,6 +41,25 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        /* Custom Scrollbar for Shopping Carousel */
+        #shoppingCarousel::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        #shoppingCarousel::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        #shoppingCarousel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        #shoppingCarousel::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 
@@ -90,27 +109,30 @@
             <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-white mx-auto"></div>
         </div>
 
-        <!-- Weather Card -->
-        <div id="weatherCard"
-            class="hidden glass-card rounded-3xl p-8 text-center text-white shadow-2xl transform transition-all duration-500 hover:scale-[1.02] flex flex-col md:flex-row items-center gap-6">
+        <!-- Main 2x2 Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- Weather Details Column -->
-            <div class="w-full flex-1">
-                <div
-                    class="inline-block bg-white/20 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider mb-6 uppercase">
-                    <span id="cityDisplay">City, Country</span>
+            <!-- 1. Weather Card -->
+            <div id="weatherCard"
+                class="hidden glass-card rounded-3xl p-6 text-center text-white shadow-2xl transition-all duration-500 hover:scale-[1.02] flex flex-col justify-between h-full min-h-[400px]">
+
+                <div class="flex-1 flex flex-col justify-center">
+                    <div
+                        class="inline-block bg-white/20 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider mb-4 uppercase self-center">
+                        <span id="cityDisplay">City, Country</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <span id="temperature" class="text-7xl font-bold leading-none tracking-tighter">--</span>
+                        <span id="tempUnit" class="text-3xl align-top opacity-80">°C</span>
+                    </div>
+
+                    <div class="text-lg font-light mb-6 opacity-90 first-letter:uppercase" id="description">
+                        Clear Sky
+                    </div>
                 </div>
 
-                <div class="mb-8">
-                    <span id="temperature" class="text-8xl font-bold leading-none tracking-tighter">--</span>
-                    <span id="tempUnit" class="text-4xl align-top opacity-80">°C</span>
-                </div>
-
-                <div class="text-xl font-light mb-8 opacity-90 first-letter:uppercase" id="description">
-                    Clear Sky
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 pt-6 border-t border-white/10">
+                <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/10 mt-auto">
                     <div class="text-center">
                         <div class="text-blue-200 text-xs font-bold tracking-widest uppercase mb-1">Wind</div>
                         <div class="text-lg font-medium">
@@ -124,33 +146,28 @@
                 </div>
             </div>
 
-        </div>
-
-        <!-- Main Content Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-
-            <!-- Music Section (Left) -->
+            <!-- 2. Music Section -->
             <div id="musicContainer"
-                class="hidden glass-card rounded-3xl p-6 text-white shadow-xl transition-all duration-500">
+                class="hidden glass-card rounded-3xl p-6 text-white shadow-xl transition-all duration-500 h-full min-h-[400px] flex flex-col">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold tracking-tight">Vibes</h2>
                     <div class="text-xs font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full text-blue-100"
                         id="musicMood">Unknown</div>
                 </div>
 
-                <div class="relative w-full rounded-xl overflow-hidden shadow-lg aspect-video mb-3">
+                <div class="relative w-full rounded-xl overflow-hidden shadow-lg aspect-video mb-auto">
                     <iframe id="musicFrame" class="w-full h-full" src="" title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
                 </div>
-                <div class="text-center text-sm font-light opacity-80 truncate" id="songTitle">
+                <div class="text-center text-sm font-light opacity-80 truncate mt-3" id="songTitle">
                     Song Title
                 </div>
             </div>
 
-            <!-- Dining Section (Right) -->
+            <!-- 3. Dining Section -->
             <div id="diningContainer"
-                class="hidden glass-card rounded-3xl p-6 text-white shadow-xl transition-all duration-500 flex flex-col">
+                class="hidden glass-card rounded-3xl p-6 text-white shadow-xl transition-all duration-500 h-full min-h-[400px] flex flex-col">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold tracking-tight">Top Dining</h2>
                     <div
@@ -164,27 +181,27 @@
                 </div>
             </div>
 
-        </div>
-
-        <!-- Shopping Recommendations -->
-        <div id="shoppingContainer"
-            class="hidden mt-8 glass-card rounded-3xl p-6 text-white shadow-2xl transition-all duration-500">
-            <div class="flex justify-between items-end mb-4">
-                <div>
-                    <h2 class="text-2xl font-bold tracking-tight">Style Guide</h2>
-                    <p class="text-blue-200 text-sm font-light mt-1" id="shoppingMood">Loading vibes...</p>
+            <!-- 4. Shopping Recommendations -->
+            <div id="shoppingContainer"
+                class="hidden glass-card rounded-3xl p-6 text-white shadow-2xl transition-all duration-500 h-full min-h-[400px] flex flex-col">
+                <div class="flex justify-between items-end mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight">Style Guide</h2>
+                        <p class="text-blue-200 text-sm font-light mt-1" id="shoppingMood">Loading vibes...</p>
+                    </div>
+                    <div
+                        class="text-xs font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full text-blue-100">
+                        Amazon Picks</div>
                 </div>
-                <div
-                    class="text-xs font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full text-blue-100">
-                    Amazon Picks</div>
+
+                <div class="relative group flex-1 flex items-center">
+                    <!-- Carousel -->
+                    <div id="shoppingCarousel" class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory w-full">
+                        <!-- Items will be injected here -->
+                    </div>
+                </div>
             </div>
 
-            <div class="relative group">
-                <!-- Carousel -->
-                <div id="shoppingCarousel" class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-                    <!-- Items will be injected here -->
-                </div>
-            </div>
         </div>
 
         <!-- Error Message -->

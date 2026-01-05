@@ -261,7 +261,7 @@ function updateUI(data, cityName, countryName, musicData, shoppingData, diningDa
 
         shoppingData.items.forEach(item => {
             const card = document.createElement('div');
-            card.className = "min-w-[200px] w-[200px] bg-white/10 rounded-xl overflow-hidden snap-center flex flex-col border border-white/10 hover:bg-white/20 transition-all duration-300";
+            card.className = "min-w-[200px] w-[200px] flex-shrink-0 bg-white/10 rounded-xl overflow-hidden snap-center flex flex-col border border-white/10 hover:bg-white/20 transition-all duration-300";
 
             // Image
             const imgDiv = document.createElement('div');
