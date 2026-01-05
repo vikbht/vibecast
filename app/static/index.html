@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeCast - Your Minimalist Forecast</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        glass: 'rgba(255, 255, 255, 0.1)',
+                        glassBorder: 'rgba(255, 255, 255, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center p-4">
+
+    <div class="w-full max-w-4xl">
+
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-5xl font-bold text-white mb-2 tracking-tight">VibeCast</h1>
+            <p class="text-blue-100 text-lg font-light">Your minimalist forecast</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex justify-end mb-4">
+            <div class="bg-white/10 rounded-lg p-1 flex items-center border border-white/10">
+                <button id="metricBtn"
+                    class="px-3 py-1 rounded-md text-sm font-semibold transition-all duration-300 bg-white text-blue-600 shadow-sm">°C</button>
+                <button id="imperialBtn"
+                    class="px-3 py-1 rounded-md text-sm font-semibold transition-all duration-300 text-white/70 hover:text-white">°F</button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="relative mb-8 group">
+            <input type="text" id="cityInput" placeholder="Search City..."
+                class="w-full py-4 px-6 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-blue-200 outline-none focus:bg-white/20 focus:border-white/40 transition-all duration-300 text-lg shadow-lg">
+
+            <!-- Suggestions Dropdown -->
+            <div id="suggestions"
+                class="hidden absolute w-full mt-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
+                <!-- Items will be injected here -->
+            </div>
+
+            <button id="searchBtn"
+                class="absolute right-2 top-2 p-2 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="hidden text-center py-8">
+            <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-white mx-auto"></div>
+        </div>
+
+        <!-- Weather Card -->
+        <div id="weatherCard"
+            class="hidden glass-card rounded-3xl p-8 text-center text-white shadow-2xl transform transition-all duration-500 hover:scale-[1.02] flex flex-col md:flex-row items-center gap-6">
+
+            <!-- Weather Details Column -->
+            <div class="w-full flex-1">
+                <div
+                    class="inline-block bg-white/20 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider mb-6 uppercase">
+                    <span id="cityDisplay">City, Country</span>
+                </div>
+
+                <div class="mb-8">
+                    <span id="temperature" class="text-8xl font-bold leading-none tracking-tighter">--</span>
+                    <span id="tempUnit" class="text-4xl align-top opacity-80">°C</span>
+                </div>
+
+                <div class="text-xl font-light mb-8 opacity-90 first-letter:uppercase" id="description">
+                    Clear Sky
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 pt-6 border-t border-white/10">
+                    <div class="text-center">
+                        <div class="text-blue-200 text-xs font-bold tracking-widest uppercase mb-1">Wind</div>
+                        <div class="text-lg font-medium">
+                            <span id="windSpeed">--</span> <span id="windUnit" class="text-sm opacity-70">km/h</span>
+                        </div>
+                    </div>
+                    <div class="text-center border-l border-white/10">
+                        <div class="text-blue-200 text-xs font-bold tracking-widest uppercase mb-1">Time</div>
+                        <div class="text-lg font-medium" id="localTime">--:--</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+
+            <!-- Music Section (Left) -->
+            <div id="musicContainer"
+                class="hidden glass-card rounded-3xl p-6 text-white shadow-xl transition-all duration-500">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold tracking-tight">Vibes</h2>
+                    <div class="text-xs font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full text-blue-100"
+                        id="musicMood">Unknown</div>
+                </div>
+
+                <div class="relative w-full rounded-xl overflow-hidden shadow-lg aspect-video mb-3">
+                    <iframe id="musicFrame" class="w-full h-full" src="" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="text-center text-sm font-light opacity-80 truncate" id="songTitle">
+                    Song Title
+                </div>
+            </div>
+
+            <!-- Dining Section (Right) -->
+            <div id="diningContainer"
+                class="hidden glass-card rounded-3xl p-6 text-white shadow-xl transition-all duration-500 flex flex-col">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold tracking-tight">Top Dining</h2>
+                    <div
+                        class="text-xs font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full text-blue-100">
+                        Local Gems</div>
+                </div>
+
+                <div id="diningList"
+                    class="flex-1 overflow-y-auto max-h-[300px] space-y-3 pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                    <!-- Dining items will be injected here -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Shopping Recommendations -->
+        <div id="shoppingContainer"
+            class="hidden mt-8 glass-card rounded-3xl p-6 text-white shadow-2xl transition-all duration-500">
+            <div class="flex justify-between items-end mb-4">
+                <div>
+                    <h2 class="text-2xl font-bold tracking-tight">Style Guide</h2>
+                    <p class="text-blue-200 text-sm font-light mt-1" id="shoppingMood">Loading vibes...</p>
+                </div>
+                <div
+                    class="text-xs font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full text-blue-100">
+                    Amazon Picks</div>
+            </div>
+
+            <div class="relative group">
+                <!-- Carousel -->
+                <div id="shoppingCarousel" class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+                    <!-- Items will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage"
+            class="hidden mt-6 p-4 bg-red-500/20 border border-red-500/30 rounded-xl text-red-100 text-center text-sm backdrop-blur-sm">
+            City not found. Please try again.
+        </div>
+
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
