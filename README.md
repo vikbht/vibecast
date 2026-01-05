@@ -2,7 +2,7 @@
 
 **VibeCast** is a minimalist, lifestyle-oriented forecast application that curates your environment by recommending music, style, and dining options based on the real-time atmosphere of your location.
 
-![VibeCast Dashboard](/Users/vikasbhatia/.gemini/antigravity/brain/2e4ceb7b-fc19-422d-bc6a-8d8e98bc6ea3/dashboard_verification_1767641421723.png)
+![VibeCast Dashboard](docs/assets/dashboard-preview.png)
 
 ## ✨ Features
 
